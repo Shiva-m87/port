@@ -1,0 +1,519 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Experience — Shivam</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;700;800&family=DM+Sans:wght@400;500;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --terminal-bg: #0d1117;
+            --terminal-text: #c9d1d9;
+            --accent-green: #58a6ff;
+            --accent-orange: #f0883e;
+            --accent-purple: #bc8cff;
+            --border-color: #30363d;
+            --hover-bg: #161b22;
+        }
+
+        body {
+            font-family: 'DM Sans', sans-serif;
+            background: var(--terminal-bg);
+            color: var(--terminal-text);
+            line-height: 1.6;
+        }
+
+        nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            background: rgba(13, 17, 23, 0.95);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid var(--border-color);
+            padding: 1.5rem 3rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 1000;
+        }
+
+        .logo {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 1.2rem;
+            font-weight: 800;
+            color: var(--accent-green);
+            letter-spacing: -1px;
+            text-decoration: none;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2.5rem;
+            list-style: none;
+        }
+
+        .nav-links a {
+            font-family: 'JetBrains Mono', monospace;
+            text-decoration: none;
+            color: var(--terminal-text);
+            font-size: 0.9rem;
+            font-weight: 500;
+            position: relative;
+            transition: color 0.3s;
+        }
+
+        .nav-links a::before {
+            content: '>';
+            position: absolute;
+            left: -15px;
+            color: var(--accent-orange);
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+
+        .nav-links a:hover {
+            color: var(--accent-green);
+        }
+
+        .nav-links a:hover::before {
+            opacity: 1;
+        }
+
+        .nav-links a.active {
+            color: var(--accent-green);
+        }
+
+        .page-header {
+            padding: 10rem 3rem 4rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .page-tag {
+            font-family: 'JetBrains Mono', monospace;
+            color: var(--accent-purple);
+            font-size: 0.95rem;
+            margin-bottom: 1rem;
+            letter-spacing: 1px;
+        }
+
+        .page-title {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: clamp(2.5rem, 6vw, 5rem);
+            font-weight: 800;
+            margin-bottom: 1.5rem;
+            letter-spacing: -2px;
+            color: var(--accent-green);
+        }
+
+        .page-description {
+            font-size: 1.2rem;
+            max-width: 700px;
+            color: rgba(201, 209, 217, 0.7);
+            line-height: 1.8;
+        }
+
+        .content-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 3rem 6rem;
+        }
+
+        .section {
+            margin-bottom: 5rem;
+        }
+
+        .section-title {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 2rem;
+            font-weight: 800;
+            margin-bottom: 2.5rem;
+            color: var(--accent-orange);
+            letter-spacing: -1px;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .section-title::before {
+            content: '';
+            width: 40px;
+            height: 3px;
+            background: var(--accent-orange);
+        }
+
+        .timeline {
+            position: relative;
+            padding-left: 3rem;
+        }
+
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            bottom: 0;
+            width: 2px;
+            background: var(--border-color);
+        }
+
+        .timeline-item {
+            position: relative;
+            margin-bottom: 3rem;
+            padding: 2rem;
+            border: 1px solid var(--border-color);
+            background: var(--hover-bg);
+            transition: all 0.3s;
+        }
+
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            left: -3.5rem;
+            top: 2rem;
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: var(--accent-green);
+            border: 3px solid var(--terminal-bg);
+            z-index: 1;
+        }
+
+        .timeline-item:hover {
+            border-color: var(--accent-green);
+            transform: translateX(10px);
+        }
+
+        .timeline-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: start;
+            margin-bottom: 1rem;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        .timeline-title {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 1.4rem;
+            font-weight: 700;
+            color: var(--terminal-text);
+        }
+
+        .timeline-date {
+            font-family: 'JetBrains Mono', monospace;
+            color: var(--accent-purple);
+            font-size: 0.85rem;
+            font-weight: 600;
+        }
+
+        .timeline-subtitle {
+            font-size: 1.1rem;
+            color: var(--accent-green);
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+        }
+
+        .timeline-description {
+            color: rgba(201, 209, 217, 0.8);
+            line-height: 1.8;
+            margin-bottom: 1rem;
+        }
+
+        .timeline-meta {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.9rem;
+            color: var(--accent-orange);
+            font-weight: 600;
+        }
+
+        .certificates-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+            gap: 2rem;
+        }
+
+        .certificate-card {
+            border: 2px solid var(--border-color);
+            padding: 2rem;
+            background: var(--hover-bg);
+            transition: all 0.3s;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .certificate-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, var(--accent-green), var(--accent-purple));
+            transform: scaleX(0);
+            transition: transform 0.3s;
+        }
+
+        .certificate-card:hover {
+            border-color: var(--accent-green);
+            transform: translateY(-5px);
+        }
+
+        .certificate-card:hover::before {
+            transform: scaleX(1);
+        }
+
+        .certificate-title {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 1.2rem;
+            font-weight: 700;
+            margin-bottom: 0.8rem;
+            color: var(--terminal-text);
+        }
+
+        .certificate-issuer {
+            color: var(--accent-green);
+            font-size: 0.95rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .certificate-date {
+            font-family: 'JetBrains Mono', monospace;
+            color: var(--accent-purple);
+            font-size: 0.85rem;
+        }
+
+        .achievements-list {
+            display: grid;
+            gap: 2rem;
+        }
+
+        .achievement-card {
+            border-left: 4px solid var(--accent-orange);
+            padding: 2rem;
+            background: var(--hover-bg);
+            border: 1px solid var(--border-color);
+            border-left: 4px solid var(--accent-orange);
+            transition: all 0.3s;
+        }
+
+        .achievement-card:hover {
+            border-color: var(--accent-green);
+            border-left-color: var(--accent-orange);
+            transform: translateX(10px);
+        }
+
+        .achievement-title {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 0.8rem;
+            color: var(--accent-green);
+        }
+
+        .achievement-meta {
+            font-family: 'JetBrains Mono', monospace;
+            color: var(--accent-purple);
+            font-size: 0.85rem;
+            margin-bottom: 1rem;
+        }
+
+        .achievement-description {
+            color: rgba(201, 209, 217, 0.8);
+            line-height: 1.8;
+        }
+
+        footer {
+            padding: 3rem;
+            text-align: center;
+            border-top: 1px solid var(--border-color);
+        }
+
+        .footer-content {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.9rem;
+            color: rgba(201, 209, 217, 0.5);
+        }
+
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin-top: 1.5rem;
+        }
+
+        .footer-links a {
+            color: var(--accent-green);
+            text-decoration: none;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.9rem;
+            transition: color 0.3s;
+        }
+
+        .footer-links a:hover {
+            color: var(--accent-orange);
+        }
+
+        @media (max-width: 768px) {
+            nav {
+                padding: 1rem 1.5rem;
+            }
+
+            .nav-links {
+                gap: 1.5rem;
+            }
+
+            .page-header {
+                padding: 8rem 1.5rem 3rem;
+            }
+
+            .content-container {
+                padding: 0 1.5rem 4rem;
+            }
+
+            .timeline {
+                padding-left: 2rem;
+            }
+
+            .timeline-item::before {
+                left: -2.5rem;
+            }
+
+            .certificates-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <nav>
+        <a href="index.html" class="logo">&lt;SHIVAM /&gt;</a>
+        <ul class="nav-links">
+            <li><a href="index.html">home</a></li>
+            <li><a href="projects.html">projects</a></li>
+            <li><a href="experience.html" class="active">experience</a></li>
+            <li><a href="contact.html">contact</a></li>
+        </ul>
+    </nav>
+
+    <div class="page-header">
+        <div class="page-tag">// JOURNEY</div>
+        <h1 class="page-title">EXPERIENCE</h1>
+        <p class="page-description">
+            Educational background, professional certifications, and notable achievements 
+            that showcase continuous learning and growth in computer science.
+        </p>
+    </div>
+
+    <div class="content-container">
+        <section class="section">
+            <h2 class="section-title">Education</h2>
+            <div class="timeline">
+                <div class="timeline-item">
+                    <div class="timeline-header">
+                        <h3 class="timeline-title">B. Tech in Computer Science and Engineering</h3>
+                        <span class="timeline-date">August 2023 - Present</span>
+                    </div>
+                    <div class="timeline-subtitle">Lovely Professional University</div>
+                    <p class="timeline-description">Punjab, India</p>
+                    <p class="timeline-meta">CGPA: 8.6/10</p>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="timeline-header">
+                        <h3 class="timeline-title">Intermediate (12th Grade)</h3>
+                        <span class="timeline-date">April 2020 - March 2022</span>
+                    </div>
+                    <div class="timeline-subtitle">Pratap Singh Memorial Senior Secondary School</div>
+                    <p class="timeline-description">Haryana, India</p>
+                    <p class="timeline-meta">Percentage: 74.8%</p>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="timeline-header">
+                        <h3 class="timeline-title">Matriculation (10th Grade)</h3>
+                        <span class="timeline-date">April 2019 - March 2020</span>
+                    </div>
+                    <div class="timeline-subtitle">Pratap Singh Memorial Senior Secondary School</div>
+                    <p class="timeline-description">Haryana, India</p>
+                    <p class="timeline-meta">Percentage: 91.4%</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="section">
+            <h2 class="section-title">Certifications</h2>
+            <div class="certificates-grid">
+                <div class="certificate-card">
+                    <h3 class="certificate-title">Data Structures and Algorithms, OOP</h3>
+                    <p class="certificate-issuer">Cipher Schools</p>
+                    <p class="certificate-date">September 2025</p>
+                </div>
+
+                <div class="certificate-card">
+                    <h3 class="certificate-title">Mobile Application Development Using Flutter</h3>
+                    <p class="certificate-issuer">Cipher Schools</p>
+                    <p class="certificate-date">July 2025</p>
+                </div>
+
+                <div class="certificate-card">
+                    <h3 class="certificate-title">Object Oriented Programming</h3>
+                    <p class="certificate-issuer">Cipher Schools</p>
+                    <p class="certificate-date">March 2025</p>
+                </div>
+
+                <div class="certificate-card">
+                    <h3 class="certificate-title">Privacy and Security in Online Social Media</h3>
+                    <p class="certificate-issuer">NPTEL</p>
+                    <p class="certificate-date">January 2024</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="section">
+            <h2 class="section-title">Achievements</h2>
+            <div class="achievements-list">
+                <div class="achievement-card">
+                    <h3 class="achievement-title">Top 10 – AWS College Hackathon</h3>
+                    <p class="achievement-meta">March 2024</p>
+                    <p class="achievement-description">
+                        Executed a facial recognition attendance system with 98.8% accuracy and 2-second real-time processing. 
+                        Built using AWS Rekognition, Lambda, Python, and S3. Demonstrated strong problem-solving skills and 
+                        technical expertise in cloud computing and machine learning.
+                    </p>
+                </div>
+
+                <div class="achievement-card">
+                    <h3 class="achievement-title">Executive – LPU NSS Unit Reformica</h3>
+                    <p class="achievement-meta">January 2024 - June 2025</p>
+                    <p class="achievement-description">
+                        Served for 1 year and 6 months, completing 80 NSS hours. Contributed actively to community development 
+                        and social welfare projects. Demonstrated leadership, teamwork, and commitment to social responsibility 
+                        while managing multiple initiatives.
+                    </p>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <footer>
+        <div class="footer-content">
+            © 2026 Shivam. Built with precision & coffee.
+        </div>
+        <div class="footer-links">
+            <a href="https://github.com/Shiva-m87" target="_blank">GitHub</a>
+            <a href="https://www.linkedin.com/in/shivam87" target="_blank">LinkedIn</a>
+            <a href="mailto:garg06102@gmail.com">Email</a>
+        </div>
+    </footer>
+</body>
+</html>

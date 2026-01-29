@@ -1,0 +1,462 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Projects — Shivam</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;700;800&family=DM+Sans:wght@400;500;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --terminal-bg: #0d1117;
+            --terminal-text: #c9d1d9;
+            --accent-green: #58a6ff;
+            --accent-orange: #f0883e;
+            --accent-purple: #bc8cff;
+            --border-color: #30363d;
+            --hover-bg: #161b22;
+        }
+
+        body {
+            font-family: 'DM Sans', sans-serif;
+            background: var(--terminal-bg);
+            color: var(--terminal-text);
+            line-height: 1.6;
+        }
+
+        nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            background: rgba(13, 17, 23, 0.95);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid var(--border-color);
+            padding: 1.5rem 3rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 1000;
+        }
+
+        .logo {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 1.2rem;
+            font-weight: 800;
+            color: var(--accent-green);
+            letter-spacing: -1px;
+            text-decoration: none;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2.5rem;
+            list-style: none;
+        }
+
+        .nav-links a {
+            font-family: 'JetBrains Mono', monospace;
+            text-decoration: none;
+            color: var(--terminal-text);
+            font-size: 0.9rem;
+            font-weight: 500;
+            position: relative;
+            transition: color 0.3s;
+        }
+
+        .nav-links a::before {
+            content: '>';
+            position: absolute;
+            left: -15px;
+            color: var(--accent-orange);
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+
+        .nav-links a:hover {
+            color: var(--accent-green);
+        }
+
+        .nav-links a:hover::before {
+            opacity: 1;
+        }
+
+        .nav-links a.active {
+            color: var(--accent-green);
+        }
+
+        .page-header {
+            padding: 10rem 3rem 4rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .page-tag {
+            font-family: 'JetBrains Mono', monospace;
+            color: var(--accent-purple);
+            font-size: 0.95rem;
+            margin-bottom: 1rem;
+            letter-spacing: 1px;
+        }
+
+        .page-title {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: clamp(2.5rem, 6vw, 5rem);
+            font-weight: 800;
+            margin-bottom: 1.5rem;
+            letter-spacing: -2px;
+            color: var(--accent-green);
+        }
+
+        .page-description {
+            font-size: 1.2rem;
+            max-width: 700px;
+            color: rgba(201, 209, 217, 0.7);
+            line-height: 1.8;
+        }
+
+        .projects-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 3rem 6rem;
+        }
+
+        .project-card {
+            border: 2px solid var(--border-color);
+            padding: 3rem;
+            margin-bottom: 3rem;
+            background: var(--hover-bg);
+            position: relative;
+            transition: all 0.3s;
+        }
+
+        .project-card:hover {
+            border-color: var(--accent-green);
+            transform: translateX(10px);
+        }
+
+        .project-card::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            height: 100%;
+            width: 4px;
+            background: var(--accent-orange);
+            transform: scaleY(0);
+            transition: transform 0.3s;
+        }
+
+        .project-card:hover::before {
+            transform: scaleY(1);
+        }
+
+        .project-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: start;
+            margin-bottom: 1.5rem;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        .project-title {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 2rem;
+            font-weight: 800;
+            color: var(--terminal-text);
+            letter-spacing: -1px;
+        }
+
+        .project-date {
+            font-family: 'JetBrains Mono', monospace;
+            color: var(--accent-purple);
+            font-size: 0.9rem;
+        }
+
+        .project-tech {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.8rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .tech-badge {
+            font-family: 'JetBrains Mono', monospace;
+            padding: 0.5rem 1rem;
+            background: rgba(88, 166, 255, 0.15);
+            border: 1px solid rgba(88, 166, 255, 0.4);
+            color: var(--accent-green);
+            font-size: 0.8rem;
+            font-weight: 600;
+        }
+
+        .project-description {
+            margin-bottom: 1.5rem;
+        }
+
+        .project-description p {
+            margin-bottom: 1rem;
+            color: rgba(201, 209, 217, 0.8);
+            line-height: 1.8;
+        }
+
+        .project-highlights {
+            list-style: none;
+            margin-bottom: 1.5rem;
+        }
+
+        .project-highlights li {
+            padding-left: 1.5rem;
+            margin-bottom: 0.8rem;
+            position: relative;
+            color: rgba(201, 209, 217, 0.8);
+        }
+
+        .project-highlights li::before {
+            content: '▸';
+            position: absolute;
+            left: 0;
+            color: var(--accent-orange);
+        }
+
+        .project-links {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .project-link {
+            font-family: 'JetBrains Mono', monospace;
+            padding: 0.8rem 1.5rem;
+            text-decoration: none;
+            border: 1px solid var(--accent-green);
+            color: var(--accent-green);
+            font-size: 0.85rem;
+            font-weight: 600;
+            transition: all 0.3s;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .project-link:hover {
+            background: var(--accent-green);
+            color: var(--terminal-bg);
+        }
+
+        footer {
+            padding: 3rem;
+            text-align: center;
+            border-top: 1px solid var(--border-color);
+        }
+
+        .footer-content {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.9rem;
+            color: rgba(201, 209, 217, 0.5);
+        }
+
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin-top: 1.5rem;
+        }
+
+        .footer-links a {
+            color: var(--accent-green);
+            text-decoration: none;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.9rem;
+            transition: color 0.3s;
+        }
+
+        .footer-links a:hover {
+            color: var(--accent-orange);
+        }
+
+        @media (max-width: 768px) {
+            nav {
+                padding: 1rem 1.5rem;
+            }
+
+            .nav-links {
+                gap: 1.5rem;
+            }
+
+            .page-header {
+                padding: 8rem 1.5rem 3rem;
+            }
+
+            .projects-container {
+                padding: 0 1.5rem 4rem;
+            }
+
+            .project-card {
+                padding: 2rem;
+            }
+
+            .project-title {
+                font-size: 1.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <nav>
+        <a href="index.html" class="logo">&lt;SHIVAM /&gt;</a>
+        <ul class="nav-links">
+            <li><a href="index.html">home</a></li>
+            <li><a href="projects.html" class="active">projects</a></li>
+            <li><a href="experience.html">experience</a></li>
+            <li><a href="contact.html">contact</a></li>
+        </ul>
+    </nav>
+
+    <div class="page-header">
+        <div class="page-tag">// PORTFOLIO</div>
+        <h1 class="page-title">PROJECTS</h1>
+        <p class="page-description">
+            A collection of projects showcasing expertise in mobile development, systems programming, 
+            and web technologies. Each project demonstrates problem-solving skills and technical proficiency.
+        </p>
+    </div>
+
+    <div class="projects-container">
+        <article class="project-card">
+            <div class="project-header">
+                <h2 class="project-title">Notes Tracker</h2>
+                <span class="project-date">July 2025</span>
+            </div>
+            <div class="project-tech">
+                <span class="tech-badge">Flutter</span>
+                <span class="tech-badge">Dart</span>
+                <span class="tech-badge">Supabase</span>
+                <span class="tech-badge">GitHub</span>
+            </div>
+            <div class="project-description">
+                <p>
+                    A comprehensive role-based workflow system designed to streamline the approval process 
+                    with three distinct roles: Submitter, Reviewer, and HOD (Head of Department).
+                </p>
+            </div>
+            <ul class="project-highlights">
+                <li>Implemented authentication & authorization via Supabase policies, reducing approval turnaround time by 45%</li>
+                <li>Built responsive Flutter UI with real-time status updates using Supabase subscriptions</li>
+                <li>Performed performance monitoring & query optimization, enhancing user experience by 25%</li>
+                <li>Deployed cross-platform builds using CI workflows (GitHub Actions)</li>
+                <li>Achieved 30% faster release cycles through code review and refactoring</li>
+            </ul>
+            <div class="project-links">
+                <a href="https://github.com/Shiva-m87" target="_blank" class="project-link">View Code</a>
+            </div>
+        </article>
+
+        <article class="project-card">
+            <div class="project-header">
+                <h2 class="project-title">Password Manager</h2>
+                <span class="project-date">December 2024</span>
+            </div>
+            <div class="project-tech">
+                <span class="tech-badge">C++</span>
+                <span class="tech-badge">OOP</span>
+                <span class="tech-badge">Encryption</span>
+                <span class="tech-badge">XOR Cipher</span>
+            </div>
+            <div class="project-description">
+                <p>
+                    A secure password management system built from scratch in C++, implementing cryptographic 
+                    techniques and object-oriented design principles for safe credential storage.
+                </p>
+            </div>
+            <ul class="project-highlights">
+                <li>Crafted XOR-based encryption/decryption system for secure password storage</li>
+                <li>Implemented file I/O handling for persistent data management</li>
+                <li>Integrated password strength analysis and random password generation using C++ STL</li>
+                <li>Designed modular classes (SimpleEncryption, PasswordGenerator, PasswordManager)</li>
+                <li>Applied encapsulation, exception handling, and data persistence principles</li>
+            </ul>
+            <div class="project-links">
+                <a href="https://github.com/Shiva-m87" target="_blank" class="project-link">View Code</a>
+            </div>
+        </article>
+
+        <article class="project-card">
+            <div class="project-header">
+                <h2 class="project-title">Portfolio Website</h2>
+                <span class="project-date">June 2025 - July 2025</span>
+            </div>
+            <div class="project-tech">
+                <span class="tech-badge">HTML5</span>
+                <span class="tech-badge">CSS3</span>
+                <span class="tech-badge">JavaScript</span>
+                <span class="tech-badge">GitHub Pages</span>
+            </div>
+            <div class="project-description">
+                <p>
+                    A fully responsive personal portfolio website featuring smooth animations, 
+                    interactive UI elements, and cross-browser compatibility.
+                </p>
+            </div>
+            <ul class="project-highlights">
+                <li>Designed mobile-first responsive layout using CSS Grid and Flexbox</li>
+                <li>Implemented dynamic content rendering with JavaScript DOM manipulation</li>
+                <li>Created form validation for contact section with real-time feedback</li>
+                <li>Achieved 95+ Lighthouse score through code minification and lazy loading</li>
+                <li>Reduced page load time by 30% with performance optimizations</li>
+                <li>Improved user engagement by 40% through interactive UI elements</li>
+            </ul>
+            <div class="project-links">
+                <a href="https://github.com/Shiva-m87" target="_blank" class="project-link">View Code</a>
+            </div>
+        </article>
+
+        <article class="project-card">
+            <div class="project-header">
+                <h2 class="project-title">Facial Recognition Attendance</h2>
+                <span class="project-date">March 2024</span>
+            </div>
+            <div class="project-tech">
+                <span class="tech-badge">AWS Rekognition</span>
+                <span class="tech-badge">Lambda</span>
+                <span class="tech-badge">Python</span>
+                <span class="tech-badge">S3</span>
+            </div>
+            <div class="project-description">
+                <p>
+                    Top 10 project at AWS College Hackathon - An automated attendance system using 
+                    facial recognition technology with cloud infrastructure.
+                </p>
+            </div>
+            <ul class="project-highlights">
+                <li>Achieved 98.8% accuracy in facial recognition</li>
+                <li>Implemented real-time processing with 2-second response time</li>
+                <li>Utilized AWS Rekognition for face detection and matching</li>
+                <li>Built serverless architecture using AWS Lambda functions</li>
+                <li>Stored images and data securely in AWS S3 buckets</li>
+            </ul>
+            <div class="project-links">
+                <a href="https://github.com/Shiva-m87" target="_blank" class="project-link">View Code</a>
+            </div>
+        </article>
+    </div>
+
+    <footer>
+        <div class="footer-content">
+            © 2026 Shivam. Built with precision & coffee.
+        </div>
+        <div class="footer-links">
+            <a href="https://github.com/Shiva-m87" target="_blank">GitHub</a>
+            <a href="https://www.linkedin.com/in/shivam87" target="_blank">LinkedIn</a>
+            <a href="mailto:garg06102@gmail.com">Email</a>
+        </div>
+    </footer>
+</body>
+</html>

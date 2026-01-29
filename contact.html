@@ -1,0 +1,436 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact — Shivam</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;700;800&family=DM+Sans:wght@400;500;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --terminal-bg: #0d1117;
+            --terminal-text: #c9d1d9;
+            --accent-green: #58a6ff;
+            --accent-orange: #f0883e;
+            --accent-purple: #bc8cff;
+            --border-color: #30363d;
+            --hover-bg: #161b22;
+        }
+
+        body {
+            font-family: 'DM Sans', sans-serif;
+            background: var(--terminal-bg);
+            color: var(--terminal-text);
+            line-height: 1.6;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            background: rgba(13, 17, 23, 0.95);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid var(--border-color);
+            padding: 1.5rem 3rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 1000;
+        }
+
+        .logo {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 1.2rem;
+            font-weight: 800;
+            color: var(--accent-green);
+            letter-spacing: -1px;
+            text-decoration: none;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2.5rem;
+            list-style: none;
+        }
+
+        .nav-links a {
+            font-family: 'JetBrains Mono', monospace;
+            text-decoration: none;
+            color: var(--terminal-text);
+            font-size: 0.9rem;
+            font-weight: 500;
+            position: relative;
+            transition: color 0.3s;
+        }
+
+        .nav-links a::before {
+            content: '>';
+            position: absolute;
+            left: -15px;
+            color: var(--accent-orange);
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+
+        .nav-links a:hover {
+            color: var(--accent-green);
+        }
+
+        .nav-links a:hover::before {
+            opacity: 1;
+        }
+
+        .nav-links a.active {
+            color: var(--accent-green);
+        }
+
+        .contact-container {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 8rem 3rem 4rem;
+            position: relative;
+        }
+
+        .contact-container::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: 
+                radial-gradient(circle at 30% 40%, rgba(88, 166, 255, 0.08) 0%, transparent 50%),
+                radial-gradient(circle at 70% 60%, rgba(240, 136, 62, 0.06) 0%, transparent 50%);
+            pointer-events: none;
+        }
+
+        .contact-content {
+            max-width: 800px;
+            width: 100%;
+            position: relative;
+            z-index: 1;
+        }
+
+        .page-tag {
+            font-family: 'JetBrains Mono', monospace;
+            color: var(--accent-purple);
+            font-size: 0.95rem;
+            margin-bottom: 1rem;
+            letter-spacing: 1px;
+        }
+
+        .page-title {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: clamp(2.5rem, 8vw, 5rem);
+            font-weight: 800;
+            margin-bottom: 1.5rem;
+            letter-spacing: -2px;
+            color: var(--accent-green);
+        }
+
+        .page-description {
+            font-size: 1.3rem;
+            margin-bottom: 4rem;
+            color: rgba(201, 209, 217, 0.7);
+            line-height: 1.8;
+        }
+
+        .contact-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+            margin-bottom: 4rem;
+        }
+
+        .contact-card {
+            border: 2px solid var(--border-color);
+            padding: 2.5rem;
+            background: var(--hover-bg);
+            transition: all 0.3s;
+            position: relative;
+        }
+
+        .contact-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: linear-gradient(90deg, var(--accent-green), var(--accent-purple));
+            transform: scaleX(0);
+            transition: transform 0.3s;
+        }
+
+        .contact-card:hover {
+            border-color: var(--accent-green);
+            transform: translateY(-5px);
+        }
+
+        .contact-card:hover::before {
+            transform: scaleX(1);
+        }
+
+        .contact-icon {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 2rem;
+            margin-bottom: 1rem;
+            color: var(--accent-orange);
+        }
+
+        .contact-label {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.85rem;
+            color: var(--accent-purple);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 0.8rem;
+        }
+
+        .contact-value {
+            font-size: 1.1rem;
+            color: var(--terminal-text);
+            word-break: break-word;
+        }
+
+        .contact-value a {
+            color: var(--accent-green);
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        .contact-value a:hover {
+            color: var(--accent-orange);
+        }
+
+        .social-section {
+            text-align: center;
+            padding: 3rem;
+            border: 2px solid var(--border-color);
+            background: var(--hover-bg);
+        }
+
+        .social-title {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 2rem;
+            color: var(--accent-orange);
+        }
+
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            flex-wrap: wrap;
+        }
+
+        .social-link {
+            font-family: 'JetBrains Mono', monospace;
+            padding: 1.2rem 2.5rem;
+            text-decoration: none;
+            border: 2px solid var(--accent-green);
+            color: var(--accent-green);
+            font-size: 1rem;
+            font-weight: 700;
+            transition: all 0.3s;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .social-link::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: var(--accent-green);
+            transition: left 0.3s;
+            z-index: -1;
+        }
+
+        .social-link:hover::before {
+            left: 0;
+        }
+
+        .social-link:hover {
+            color: var(--terminal-bg);
+            border-color: var(--accent-green);
+        }
+
+        .availability {
+            margin-top: 3rem;
+            padding: 2rem;
+            border-left: 4px solid var(--accent-orange);
+            background: rgba(240, 136, 62, 0.05);
+            border: 1px solid var(--border-color);
+            border-left: 4px solid var(--accent-orange);
+        }
+
+        .availability-title {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 1.2rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            color: var(--accent-green);
+        }
+
+        .availability-text {
+            color: rgba(201, 209, 217, 0.8);
+            line-height: 1.8;
+        }
+
+        footer {
+            padding: 3rem;
+            text-align: center;
+            border-top: 1px solid var(--border-color);
+            margin-top: auto;
+        }
+
+        .footer-content {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.9rem;
+            color: rgba(201, 209, 217, 0.5);
+        }
+
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin-top: 1.5rem;
+        }
+
+        .footer-links a {
+            color: var(--accent-green);
+            text-decoration: none;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.9rem;
+            transition: color 0.3s;
+        }
+
+        .footer-links a:hover {
+            color: var(--accent-orange);
+        }
+
+        @media (max-width: 768px) {
+            nav {
+                padding: 1rem 1.5rem;
+            }
+
+            .nav-links {
+                gap: 1.5rem;
+            }
+
+            .contact-container {
+                padding: 7rem 1.5rem 3rem;
+            }
+
+            .contact-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .social-links {
+                flex-direction: column;
+            }
+
+            .social-link {
+                width: 100%;
+                text-align: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <nav>
+        <a href="index.html" class="logo">&lt;SHIVAM /&gt;</a>
+        <ul class="nav-links">
+            <li><a href="index.html">home</a></li>
+            <li><a href="projects.html">projects</a></li>
+            <li><a href="experience.html">experience</a></li>
+            <li><a href="contact.html" class="active">contact</a></li>
+        </ul>
+    </nav>
+
+    <div class="contact-container">
+        <div class="contact-content">
+            <div class="page-tag">// LET'S CONNECT</div>
+            <h1 class="page-title">GET IN TOUCH</h1>
+            <p class="page-description">
+                Open to collaboration, internship opportunities, and interesting projects. 
+                Feel free to reach out through any of the channels below.
+            </p>
+
+            <div class="contact-grid">
+                <div class="contact-card">
+                    <div class="contact-icon">@</div>
+                    <div class="contact-label">Email</div>
+                    <div class="contact-value">
+                        <a href="mailto:garg06102@gmail.com">garg06102@gmail.com</a>
+                    </div>
+                </div>
+
+                <div class="contact-card">
+                    <div class="contact-icon">#</div>
+                    <div class="contact-label">Phone</div>
+                    <div class="contact-value">
+                        <a href="tel:+918569856686">+91-8569856686</a>
+                    </div>
+                </div>
+
+                <div class="contact-card">
+                    <div class="contact-icon">📍</div>
+                    <div class="contact-label">Location</div>
+                    <div class="contact-value">
+                        Punjab, India
+                    </div>
+                </div>
+            </div>
+
+            <div class="social-section">
+                <h2 class="social-title">Connect on Social Platforms</h2>
+                <div class="social-links">
+                    <a href="https://github.com/Shiva-m87" target="_blank" class="social-link">GitHub</a>
+                    <a href="https://www.linkedin.com/in/shivam87" target="_blank" class="social-link">LinkedIn</a>
+                </div>
+            </div>
+
+            <div class="availability">
+                <h3 class="availability-title">Current Status</h3>
+                <p class="availability-text">
+                    Currently pursuing B. Tech in Computer Science at Lovely Professional University 
+                    with a CGPA of 8.6. Actively seeking internship opportunities and collaborative 
+                    projects in software development, mobile applications, and data analysis. 
+                    Available for part-time and full-time opportunities starting immediately.
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <div class="footer-content">
+            © 2026 Shivam. Built with precision & coffee.
+        </div>
+        <div class="footer-links">
+            <a href="https://github.com/Shiva-m87" target="_blank">GitHub</a>
+            <a href="https://www.linkedin.com/in/shivam87" target="_blank">LinkedIn</a>
+            <a href="mailto:garg06102@gmail.com">Email</a>
+        </div>
+    </footer>
+</body>
+</html>
